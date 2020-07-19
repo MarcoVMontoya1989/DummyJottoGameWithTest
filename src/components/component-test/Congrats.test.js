@@ -1,14 +1,11 @@
 import React from "react";
-import Enzyme, {shallow} from 'enzyme';
-import EnzymeAdapter from 'enzyme-adapter-react-16';
+import {shallow} from 'enzyme';
 import PropTypes from 'prop-types';
 import {
   findByAttributeTest,
   checkProps
 } from "../../test/test.utils";
 import CongratsComponent from "../Congrats.component";
-
-Enzyme.configure({adapter: new EnzymeAdapter()});
 
 const defaultProps = {success: false};
 
@@ -26,7 +23,7 @@ const setup = (props={}, state=null) => {
 
 describe('Congrats message component', () => {
   test('should render the component', () => {
-    const wrapper = shallow(<CongratsComponent />);
+    const wrapper = shallow(<CongratsComponent {...defaultProps}/>);
     expect(wrapper).toMatchSnapshot(wrapper);
   });
 
@@ -57,5 +54,5 @@ describe('Congrats message component', () => {
     };
 
     checkProps(CongratsComponent, expectedProps);
-  })
+  });
 })
