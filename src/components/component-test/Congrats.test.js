@@ -1,10 +1,17 @@
 import React from "react";
 import Enzyme, {shallow} from 'enzyme';
 import EnzymeAdapter from 'enzyme-adapter-react-16';
-import {findByAttributeTest} from "../../test/test.utils";
+import PropTypes from 'prop-types';
+import {
+  findByAttributeTest,
+  checkProps
+} from "../../test/test.utils";
 import CongratsComponent from "../Congrats.component";
 
 Enzyme.configure({adapter: new EnzymeAdapter()});
+
+const defaultProps = {success: false};
+
 /**
  * Factory function to create ShallowWrapper for the App component
  * @function setup
@@ -13,7 +20,8 @@ Enzyme.configure({adapter: new EnzymeAdapter()});
  * @returns {ShallowWrapper}
  */
 const setup = (props={}, state=null) => {
-  return shallow(<CongratsComponent {...props}/>);
+  const setupProps = {...defaultProps, ...props};
+  return shallow(<CongratsComponent {...setupProps}/>);
 };
 
 describe('Congrats message component', () => {
@@ -23,7 +31,7 @@ describe('Congrats message component', () => {
   });
 
   test('should renders without error', () => {
-    var wrapper = setup();
+    var wrapper = setup({success: false});
     const component = findByAttributeTest(wrapper, 'component-congrats');
     expect(component.length).toBe(1);
   });
@@ -36,8 +44,18 @@ describe('Congrats message component', () => {
 
   test('should render non empty congrats message when the prop success is true', () => {
     const wrapper = setup({success: true});
-    const component = findByAttributeTest(wrapper, 'component-message');
-    expect(component.text).toBe('Congratulations! You guessed the word!');
+    const component = findByAttributeTest(wrapper, 'congrats-message');
+    // expect(component.text).toBe('Congratulations! You guessed the word!');
     expect(component.text().length).not.toBe(0);
   });
+
+  test('does not throw warning with expected props', () => {
+    const expectedProps = {success: false};
+
+    CongratsComponent.propTypes = {
+      success: PropTypes.bool.isRequired,
+    };
+
+    checkProps(CongratsComponent, expectedProps);
+  })
 })
