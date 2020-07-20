@@ -101,13 +101,5 @@ describe('GuessedWord Component test', () => {
       const guessedWordsNode = findByAttributeTest(wrapper, 'guessed-words');
       expect(guessedWordsNode.length).toBe(guessedWordsNode.length);
     });
-
-    test('', () => {
-
-    });
   });
-
-  // test('', () => {
-  //
-  // });
 });
