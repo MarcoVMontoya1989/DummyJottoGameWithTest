@@ -5,7 +5,7 @@ import {
   findByAttributeTest,
   checkProps
 } from "../../test/test.utils";
-import GuessedWordComponent from "./GuessedWord.component";
+import GuessedWordComponent from "../GuessedWord.component";
 
 const defaultProps = {
   guessedWords: [
